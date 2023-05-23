@@ -1,0 +1,56 @@
+import { extend, setInteractionMode } from 'vee-validate'
+import { required, email, alpha_spaces, alpha_dash, min, max, numeric, min_value, max_value,
+         alpha_num, size, double, image, between, length, digits } from 'vee-validate/dist/rules'
+import en from "vee-validate/dist/locale/en.json";
+
+export default 
+    extend('required', { ...required, message: en.messages.required });
+
+    extend('email', { ...email, message: en.messages.email });
+
+    extend('alpha_spaces', { ...alpha_spaces, message: en.messages.alpha_spaces });
+
+    extend('alpha_dash', { ...alpha_dash, message: en.messages.alpha_dash });
+
+    extend('alpha_num', { ...alpha_num, message: en.messages.alpha_num });
+
+    extend('min', { ...min, message: en.messages.min });
+
+    extend('max', { ...max, message: en.messages.max });
+
+    extend('numeric', { ...numeric, message: en.messages.numeric });
+
+    extend('double', { ...double, message: en.messages.double });
+
+    extend('digits', { ...length, message: en.messages.digits });
+
+    extend('min_value', { ...min_value, message: en.messages.min_value });
+
+    extend('max_value', { ...max_value, message: en.messages.max_value });
+
+    extend('size', { ...size, message: en.messages.size });
+
+    extend('image', { ...image, message: en.messages.image });
+
+    extend('between', { ...between, message: en.messages.between });
+
+    extend('length', { ...length, message: en.messages.length });
+
+    /**
+     * ADD CUSTOM RULES HERE
+     */
+
+    extend('unique', {
+  
+        message: '{_value_} is already a field name. Field must be unique.',
+
+        params: ['fields', 'id'],
+
+        validate: (value, { fields, id }) => {
+            const field_name = value.toLowerCase().replaceAll(' ', '_'),
+                field = fields.find( field => field.name == field_name )
+                
+            return (!id &&  field) ? false : true      
+        }
+    });
+
